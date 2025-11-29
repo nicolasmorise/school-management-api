@@ -6,13 +6,13 @@ const studentsController = require('../controller/studentsController');
 // #swagger.tags = ['Students']
 // #swagger.summary = 'Get all students'
 // #swagger.description = 'Returns a list of all students'
-router.get('/', studentsController.getAllStudents);
+router.get('/', studentsController.getAllStudent);
 
 // #swagger.tags = ['Students']
 // #swagger.summary = 'Get a student by ID'
 // #swagger.description = 'Returns a single student based on the provided ID'
 // #swagger.parameters['id'] = { description: 'Student ID' }
-router.get('/:id', studentsController.getStudentById);
+router.get('/:id', studentsController.getSingleStudent);
 
 // #swagger.tags = ['Students']
 // #swagger.summary = 'Create a new student'
