@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Students Controllers - samueldelacruz123
 const mongodb = require('../connection/db');
 
@@ -151,7 +150,3 @@ module.exports = {
     updateStudent,
     deleteStudent,
 };
-=======
-// This is an example for Pull Request
-
->>>>>>> 861666d51682d7c75f532543cd0f7fa46ad38b48
