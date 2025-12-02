@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const teachersController = require("../controllers/teachersController"); 
+const teachersController = require("../controller/teachersController");
 
+
+// Public Routes
 router.get('/', teachersController.getAll);
 router.get('/:id', teachersController.getSingle);
+
+// Protected Routes
 router.post('/', teachersController.postTeacher);
 router.put('/:id', teachersController.putTeacher);
 router.delete('/:id', teachersController.deleteTeacher);

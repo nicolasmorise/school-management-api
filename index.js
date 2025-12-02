@@ -1,4 +1,6 @@
 const express = require('express');
+const studentsRoute = require('./routes/studentsRoute');
+const teachersRoute = require('./routes/teachersRoute');
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.port || 3000;
@@ -6,11 +8,16 @@ const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('./connection/db');
 const routes = require('./routes/index')
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output.json');
+const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.use(bodyParser.json());
+
 app.use('/', routes);
+
+app.use('/api/students', studentsRoute);
+app.use('/api/teachers', teachersRoute);
 
 
 mongodb.initDb((err, mongodb) => {

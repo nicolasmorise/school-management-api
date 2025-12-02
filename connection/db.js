@@ -8,9 +8,11 @@ const initDb = (callback) => {
     console.log('Db is already initialized!');
     return callback(null, _db);
   }
+
   MongoClient.connect(process.env.MONGODB_URI)
     .then((client) => {
-      _db = client;
+      _db = client.db('schoolDB');
+      console.log('Database connected!');
       callback(null, _db);
     })
     .catch((err) => {
@@ -22,7 +24,7 @@ const getDb = () => {
   if (!_db) {
     throw Error('Db not initialized');
   }
-  return _db;
+  return _db;  // now returns the real DB (correct)
 };
 
 module.exports = {

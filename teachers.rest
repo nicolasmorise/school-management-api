@@ -1,0 +1,40 @@
+### GET all teachers
+GET http://localhost:3000/teachers
+Content-Type: application/json
+
+### GET teacher by ID
+GET http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+Content-Type: application/json
+
+### CREATE a new teacher (POST)
+POST http://localhost:3000/teachers
+Content-Type: application/json
+
+{
+  "firstName": "Sofia",
+  "lastName": "Martínez",
+  "age": 31,
+  "subject": "Computer Science",
+  "yearsOfExperience": 7,
+  "email": "sofia.martinez@school.edu",
+  "isFullTime": true
+}
+
+### UPDATE a teacher (PUT)
+PUT http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+Content-Type: application/json
+
+{
+  "firstName": "Sofia",
+  "lastName": "Martínez",
+  "age": 31,
+  "subject": "Computer Science",
+  "yearsOfExperience": 10,
+  "email": "sofia.martinez@school.edu",
+  "isFullTime": true
+}
+
+
+### DELETE a teacher (DELETE)
+DELETE http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+Content-Type: application/json
