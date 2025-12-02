@@ -5,8 +5,8 @@ const doc = {
     title: 'School Management API',
     description: 'API for managing Teachers and Students collections'
   },
-  host: 'localhost:3000',
-  schemes: ['http'],
+  host: 'school-management-api-1-iy1v.onrender.com',
+  schemes: ['https'],
 
 // ============================
   // 📘 SCHEMAS (Teacher + Student)
