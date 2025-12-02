@@ -5,10 +5,10 @@
     "description": "API for managing Teachers and Students collections",
     "version": "1.0.0"
   },
-  "host": "school-management-api-1-iy1v.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
