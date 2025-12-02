@@ -16,6 +16,7 @@ const getAll = async (req, res) => {
 
 // GET ONE
 const getSingle = async (req, res) => {
+    //#swagger.tags = ['Teachers']
     try {
         const teacher = await teachersModels.getSingle(req.params.id);
 
@@ -36,11 +37,16 @@ const getSingle = async (req, res) => {
 
 // POST
 const postTeacher = async (req, res) => {
-    // #swagger.tags = ['Teachers']
-    // #swagger.parameters['teacher'] = {
-    //      in: 'body',
-    //      required: true,
-    //      schema: { $ref: '#/definitions/Teacher' }
+    /*  
+        #swagger.tags = ['Teachers']
+        #swagger.description = 'Create a new teacher'
+        #swagger.parameters['teacher'] = {
+            in: 'body',
+            description: 'Teacher information to create',
+            required: true,
+            schema: { $ref: '#/definitions/Teacher' }
+        }
+    */
     try {
         const teacher = req.body;
         const response = await teachersModels.postTeacher(teacher);
@@ -60,12 +66,16 @@ const postTeacher = async (req, res) => {
 
 // PUT
 const putTeacher = async (req, res) => {
-    // #swagger.tags = ['Teachers']
-    //#swagger.parameters['teacher'] = { 
-    //     in: 'body',
-    //     required: true,
-    //     schema: { $ref: '#/definitions/Teacher' }
-    //}
+    /*  
+        #swagger.tags = ['Teachers']
+        #swagger.description = 'Update an existing teacher'
+        #swagger.parameters['teacher'] = { 
+            in: 'body',
+            description: 'Updated teacher information',
+            required: true,
+            schema: { $ref: '#/definitions/Teacher' }
+        }
+    */
     try {
         const response = await teachersModels.putTeacher(req.params.id, req.body);
 
