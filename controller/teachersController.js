@@ -1,7 +1,11 @@
-const teachersModels = require("../models/teachersModelss");
+const mongodb = require('../connection/db');
+const ObjectId = require('mongodb').ObjectId;
+
+const teachersModels = require("../models/teachersModels");
 
 // GET ALL
 const getAll = async (req, res) => {
+    // #swagger.tags = ['Teachers']
     try {
         const teachers = await teachersModels.getAll();
         res.status(200).json(teachers);
@@ -13,18 +17,30 @@ const getAll = async (req, res) => {
 // GET ONE
 const getSingle = async (req, res) => {
     try {
-        const teachers = await teachersModels.getSingle(req.params.id);
-        if (!teachers[0]) {
-            return res.status(404).json({ message: "Error: Sorry, I don't think we can find that particular teacher" });
+        const teacher = await teachersModels.getSingle(req.params.id);
+
+        if (!teacher) {
+            return res.status(404).json({
+                message: "Error: Sorry, I don't think we can find that particular teacher",
+            });
         }
-        res.status(200).json(teachers[0]);
+
+        res.status(200).json(teacher);
     } catch (err) {
-        res.status(500).json({ message: "Error: We had problems fetching the teacher's profile."});
+        res.status(500).json({
+            message: "Error: We had problems fetching the teacher's profile.",
+            error: err.message,
+        });
     }
 };
 
 // POST
 const postTeacher = async (req, res) => {
+    // #swagger.tags = ['Teachers']
+    // #swagger.parameters['teacher'] = {
+    //      in: 'body',
+    //      required: true,
+    //      schema: { $ref: '#/definitions/Teacher' }
     try {
         const teacher = req.body;
         const response = await teachersModels.postTeacher(teacher);
@@ -44,6 +60,12 @@ const postTeacher = async (req, res) => {
 
 // PUT
 const putTeacher = async (req, res) => {
+    // #swagger.tags = ['Teachers']
+    //#swagger.parameters['teacher'] = { 
+    //     in: 'body',
+    //     required: true,
+    //     schema: { $ref: '#/definitions/Teacher' }
+    //}
     try {
         const response = await teachersModels.putTeacher(req.params.id, req.body);
 
@@ -59,6 +81,7 @@ const putTeacher = async (req, res) => {
 
 // DELETE
 const deleteTeacher = async (req, res) => {
+    //#swagger.tags = ['Teachers']
     try {
         const response = await teachersModels.deleteTeacher(req.params.id);
 

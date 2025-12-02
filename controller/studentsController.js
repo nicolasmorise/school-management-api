@@ -5,10 +5,8 @@ const ObjectId = require('mongodb').ObjectId;
 // Get all students
 const getAllStudent = async (req, res) => {
     try {
-        // #swagger.tags = ['Students']
         const students = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('students')
             .find()
             .toArray();
@@ -25,12 +23,10 @@ const getAllStudent = async (req, res) => {
 // Get single student by id
 const getSingleStudent = async (req, res) => {
     try {
-        // #swagger.tags = ['Students']
         const studentId = new ObjectId(req.params.id);
 
         const student = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('students')
             .findOne({ _id: studentId });
 
@@ -50,7 +46,6 @@ const getSingleStudent = async (req, res) => {
 // Create a new student
 const createStudent = async (req, res) => {
     try {
-        // #swagger.tags = ['Students']
         const student = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -63,16 +58,11 @@ const createStudent = async (req, res) => {
         };
 
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('students')
             .insertOne(student);
 
-        if (response.acknowledged) {
-            res.status(201).json({ message: 'Student created successfully' });
-        } else {
-            res.status(500).json({ message: 'Failed to create student' });
-        }
+        res.status(201).json({ message: 'Student created', id: response.insertedId });
     } catch (err) {
         res.status(500).json({
             message: 'Error creating student',
@@ -84,7 +74,6 @@ const createStudent = async (req, res) => {
 // Update a student by id
 const updateStudent = async (req, res) => {
     try {
-        // #swagger.tags = ['Students']
         const studentId = new ObjectId(req.params.id);
 
         const updatedStudent = {
@@ -99,16 +88,11 @@ const updateStudent = async (req, res) => {
         };
 
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('students')
             .replaceOne({ _id: studentId }, updatedStudent);
 
-        if (response.modifiedCount > 0) {
-            res.status(200).json({ message: 'Student updated successfully' });
-        } else {
-            res.status(404).json({ message: 'Student not found or no changes made' });
-        }
+        res.status(200).json(response);
     } catch (err) {
         res.status(500).json({
             message: 'Error updating student',
@@ -120,19 +104,14 @@ const updateStudent = async (req, res) => {
 // Delete a student by id
 const deleteStudent = async (req, res) => {
     try {
-        // #swagger.tags = ['Students']
         const studentId = new ObjectId(req.params.id);
+
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('students')
             .deleteOne({ _id: studentId });
 
-        if (response.deletedCount > 0) {
-            res.status(200).json({ message: 'Student deleted successfully' });
-        } else {
-            res.status(404).json({ message: 'Student not found' });
-        }
+        res.status(200).json(response);
     } catch (err) {
         res.status(500).json({
             message: 'Error deleting student',
