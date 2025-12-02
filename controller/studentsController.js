@@ -1,5 +1,6 @@
 // Students Controllers - samueldelacruz123
 const mongodb = require('../connection/db');
+const ObjectId = require('mongodb').ObjectId;
 
 // Get all students
 const getAllStudent = async (req, res) => {
@@ -25,13 +26,13 @@ const getAllStudent = async (req, res) => {
 const getSingleStudent = async (req, res) => {
     try {
         // #swagger.tags = ['Students']
-        const id = req.params.id;
+        const studentId = new ObjectId(req.params.id);
 
         const student = await mongodb
             .getDatabase()
             .db()
             .collection('students')
-            .findOne({ _id: id });
+            .findOne({ _id: studentId });
 
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
@@ -51,7 +52,6 @@ const createStudent = async (req, res) => {
     try {
         // #swagger.tags = ['Students']
         const student = {
-            _id: req.body._id, // allow custom IDs like "s006"
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             age: req.body.age,
@@ -85,10 +85,9 @@ const createStudent = async (req, res) => {
 const updateStudent = async (req, res) => {
     try {
         // #swagger.tags = ['Students']
-        const studentId = req.params.id;
+        const studentId = new ObjectId(req.params.id);
 
         const updatedStudent = {
-            _id: studentId,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             age: req.body.age,
@@ -122,8 +121,7 @@ const updateStudent = async (req, res) => {
 const deleteStudent = async (req, res) => {
     try {
         // #swagger.tags = ['Students']
-        const studentId = req.params.id;
-
+        const studentId = new ObjectId(req.params.id);
         const response = await mongodb
             .getDatabase()
             .db()
