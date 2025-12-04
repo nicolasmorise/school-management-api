@@ -1,4 +1,4 @@
-// Staff Controllers - samueldelacruz123 contribution
+// Staff Controllers - samueldelacruz123
 const mongodb = require('../connection/db');
 const ObjectId = require('mongodb').ObjectId;
 
