@@ -1,6 +1,7 @@
 const express = require('express');
 const studentsRoute = require('./routes/studentsRoute');
 const teachersRoute = require('./routes/teachersRoute');
+const coursesRoute = require('./routes/coursesRoute');
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.port || 3000;
@@ -18,6 +19,7 @@ app.use('/', routes);
 
 app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
+app.use('/api/courses', coursesRoute);
 
 
 mongodb.initDb((err, mongodb) => {
