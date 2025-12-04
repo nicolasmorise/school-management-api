@@ -11,6 +11,9 @@ router.use('/students', require('./studentsRoute'));
 // Teachers routes
 router.use('/teachers', require('./teachersRoute'));
 
+// Courses routes
+router.use('/courses', require('./coursesRoute'));
+
 // Root welcome message
 router.get('/', (req, res) => {
   //#swagger.tags = ['Welcome']
