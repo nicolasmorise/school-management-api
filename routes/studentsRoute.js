@@ -28,3 +28,5 @@ router.put('/:id', studentsController.updateStudent);
 // #swagger.summary = 'Delete a student'
 // #swagger.parameters['id'] = { description: 'Student ID' }
 router.delete('/:id', studentsController.deleteStudent);
+
+module.exports = router;

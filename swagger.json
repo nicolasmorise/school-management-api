@@ -1,0 +1,743 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "School Management API",
+    "description": "API for managing Teachers, Students, Courses, and Staff collections",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "Create a new course",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "body",
+            "description": "Course information to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api-docsapi-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/students/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "age": {
+                  "example": "any"
+                },
+                "grade": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "enrolled": {
+                  "example": "any"
+                },
+                "gpa": {
+                  "example": "any"
+                },
+                "homeroomTeacher": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/students/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "age": {
+                  "example": "any"
+                },
+                "grade": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "enrolled": {
+                  "example": "any"
+                },
+                "gpa": {
+                  "example": "any"
+                },
+                "homeroomTeacher": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/teachers/": {
+      "get": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "Create a new teacher",
+        "parameters": [
+          {
+            "name": "teacher",
+            "in": "body",
+            "description": "Teacher information to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Teacher"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/teachers/{id}": {
+      "get": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "Update an existing teacher",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teacher",
+            "in": "body",
+            "description": "Updated teacher information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Teacher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/courses/": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "Create a new course",
+        "parameters": [
+          {
+            "name": "course",
+            "in": "body",
+            "description": "Course information to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "Update an existing course",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "course",
+            "in": "body",
+            "description": "Updated course information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "Update an existing course",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "course",
+            "in": "body",
+            "description": "Updated course information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Course"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Teacher": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "age": {
+          "type": "number",
+          "example": 35
+        },
+        "subject": {
+          "type": "string",
+          "example": "Mathematics"
+        },
+        "yearsOfExperience": {
+          "type": "number",
+          "example": 10
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@testemail.com"
+        },
+        "isFullTime": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Student": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Andrés"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Castillo"
+        },
+        "age": {
+          "type": "number",
+          "example": 16
+        },
+        "grade": {
+          "type": "number",
+          "example": 11
+        },
+        "email": {
+          "type": "string",
+          "example": "andres.castillo@student.edu"
+        },
+        "enrolled": {
+          "type": "boolean",
+          "example": true
+        },
+        "gpa": {
+          "type": "number",
+          "example": 3.8
+        },
+        "homeroomTeacher": {
+          "type": "string",
+          "example": "Ms. Smith"
+        }
+      }
+    },
+    "Course": {
+      "type": "object",
+      "properties": {
+        "courseId": {
+          "type": "number",
+          "example": 301
+        },
+        "name": {
+          "type": "string",
+          "example": "Environmental Studies: Climate & Sustainability"
+        },
+        "code": {
+          "type": "string",
+          "example": "ENV120"
+        },
+        "credits": {
+          "type": "number",
+          "example": 3
+        },
+        "department": {
+          "type": "string",
+          "example": "Science"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "maxStudents": {
+          "type": "number",
+          "example": 28
+        },
+        "schedule": {
+          "type": "object",
+          "properties": {
+            "day": {
+              "type": "string",
+              "example": "Tuesday"
+            },
+            "startTime": {
+              "type": "string",
+              "example": "11:00"
+            },
+            "endTime": {
+              "type": "string",
+              "example": "13:00"
+            }
+          }
+        },
+        "prerequisites": {
+          "type": "array",
+          "example": [
+            101,
+            202
+          ],
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "Staff": {
+      "type": "object",
+      "properties": {
+        "staffId": {
+          "type": "number",
+          "example": 105
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Verónica"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Hernández"
+        },
+        "email": {
+          "type": "string",
+          "example": "veronica.hernandez@school.edu"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+57 318 770 6655"
+        },
+        "role": {
+          "type": "string",
+          "example": "Registrar"
+        },
+        "department": {
+          "type": "string",
+          "example": "Academic Records"
+        },
+        "hireDate": {
+          "type": "string",
+          "example": "2022-11-01"
+        },
+        "status": {
+          "type": "string",
+          "example": "active"
+        }
+      }
+    }
+  }
+}

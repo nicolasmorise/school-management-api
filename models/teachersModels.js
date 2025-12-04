@@ -1,26 +1,25 @@
-const mongodb = require('../data/database');
+const mongodb = require('../connection/db');
 const { ObjectId } = require('mongodb');
 
 async function getAll() {
     return mongodb
-        .getDatabase()
-        .collection("teachers") 
-        .find()
+        .getDb()
+        .collection("teachers")
+        .find({})
         .toArray();
 }
 
 async function getSingle(id) {
     const teacherId = new ObjectId(id);
     return mongodb
-        .getDatabase()
+        .getDb()
         .collection("teachers")
-        .find({ _id: teacherId })
         .findOne({ _id: teacherId });
 }
 
 async function postTeacher(teacher) {
     return mongodb
-        .getDatabase()
+        .getDb()
         .collection("teachers")
         .insertOne(teacher);
 }
@@ -28,7 +27,7 @@ async function postTeacher(teacher) {
 async function putTeacher(id, teacher) {
     const teacherId = new ObjectId(id);
     return mongodb
-        .getDatabase()
+        .getDb()
         .collection("teachers")
         .replaceOne({ _id: teacherId }, teacher);
 }
@@ -36,7 +35,7 @@ async function putTeacher(id, teacher) {
 async function deleteTeacher(id) {
     const teacherId = new ObjectId(id);
     return mongodb
-        .getDatabase()
+        .getDb()
         .collection("teachers")
         .deleteOne({ _id: teacherId });
 }

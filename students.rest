@@ -1,0 +1,41 @@
+### GET all students
+GET http://localhost:3000/api/students
+Content-Type: application/json
+
+### GET student by ID
+GET http://localhost:3000/api/students/692f4e5bae97a4d43764c623
+Content-Type: application/json
+
+### CREATE a new student (POST)
+POST http://localhost:3000/api/students HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Valentina",
+  "lastName": "Ríos",
+  "age": 15,
+  "grade": 9,
+  "email": "valentina.rios@student.edu",
+  "enrolled": true,
+  "gpa": 3.9,
+  "homeroomTeacher": "Mr. Johnson"
+}
+
+### UPDATE a student (PUT)
+PUT http://localhost:3000/api/students/692f4e5bae97a4d43764c623 HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "Valentina",
+  "lastName": "Ríos",
+  "age": 23,
+  "grade": 9,
+  "email": "valentina.rios@student.edu",
+  "enrolled": true,
+  "gpa": 3.9,
+  "homeroomTeacher": "Mr. Johnson"
+}
+
+### DELETE a student
+DELETE http://localhost:3000/api/students/692f4e5bae97a4d43764c623
+Content-Type: application/json
