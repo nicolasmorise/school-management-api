@@ -1,4 +1,4 @@
-// Students Controllers - samueldelacruz123
+// Students Controllers - samueldelacruz123 contribution
 const mongodb = require('../connection/db');
 const ObjectId = require('mongodb').ObjectId;
 

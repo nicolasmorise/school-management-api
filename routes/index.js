@@ -8,16 +8,6 @@ router.use('/api-docs', require('./swagger'));
 // Student Route - samueldelacruz123
 router.use('/students', require('./studentsRoute'));
 
-// Teachers routes
-router.use('/teachers', require('./teachersRoute'));
-
-// Courses routes
-router.use('/courses', require('./coursesRoute'));
-
-// Root welcome message
-router.get('/', (req, res) => {
-  //#swagger.tags = ['Welcome']
-  res.send('Welcome to the School Management API 👋');
-});
+router.use('/staff', require('./staffRoute'));
 
 module.exports = router;
