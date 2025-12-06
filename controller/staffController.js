@@ -7,8 +7,7 @@ const getAllStaff = async (req, res) => {
     try {
         // #swagger.tags = ['Staff']
         const staff = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('staff')
             .find()
             .toArray();
@@ -29,8 +28,7 @@ const getSingleStaffMember = async (req, res) => {
         const staffMemberId = new ObjectId(req.params.id);
 
         const staffMember = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('staff')
             .findOne({ _id: staffMemberId });
 
@@ -63,8 +61,7 @@ const createStaffMember = async (req, res) => {
         };
 
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('staff')
             .insertOne(staffMember);
 
@@ -99,8 +96,7 @@ const updateStaffMember = async (req, res) => {
         };
 
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('staff')
             .replaceOne({ _id: staffMemberId }, updatedStaffMember);
 
@@ -123,8 +119,7 @@ const deleteStaffMember = async (req, res) => {
         // #swagger.tags = ['Staff']
         const staffMemberId = new ObjectId(req.params.id);
         const response = await mongodb
-            .getDatabase()
-            .db()
+            .getDb()
             .collection('staff')
             .deleteOne({ _id: staffMemberId });
 
