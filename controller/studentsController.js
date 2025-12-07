@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 // Get all students
 const getAllStudent = async (req, res) => {
+    // #swagger.tags = ['Students']
     try {
         const students = await mongodb
             .getDb()
@@ -22,6 +23,7 @@ const getAllStudent = async (req, res) => {
 
 // Get single student by id
 const getSingleStudent = async (req, res) => {
+    // #swagger.tags = ['Students']
     try {
         const studentId = new ObjectId(req.params.id);
 
@@ -45,6 +47,16 @@ const getSingleStudent = async (req, res) => {
 
 // Create a new student
 const createStudent = async (req, res) => {
+        /*  
+        #swagger.tags = ['Students']
+        #swagger.description = 'Update an existing student'
+        #swagger.parameters['student'] = { 
+            in: 'body',
+            description: 'Updated student information',
+            required: true,
+            schema: { $ref: '#/definitions/Student' }
+        }
+    */
     try {
         const student = {
             firstName: req.body.firstName,
@@ -73,6 +85,16 @@ const createStudent = async (req, res) => {
 
 // Update a student by id
 const updateStudent = async (req, res) => {
+        /*  
+        #swagger.tags = ['Students']
+        #swagger.description = 'Update an existing student'
+        #swagger.parameters['student'] = { 
+            in: 'body',
+            description: 'Updated student information',
+            required: true,
+            schema: { $ref: '#/definitions/Student' }
+        }
+    */
     try {
         const studentId = new ObjectId(req.params.id);
 
@@ -103,6 +125,7 @@ const updateStudent = async (req, res) => {
 
 // Delete a student by id
 const deleteStudent = async (req, res) => {
+    // #swagger.tags = ['Students']
     try {
         const studentId = new ObjectId(req.params.id);
 

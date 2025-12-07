@@ -3,25 +3,11 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
   info: {
     title: 'School Management API',
-    description: 'API for managing Teachers, Students, Courses, and Staff collections'
+    description: 'API for managing students, teachers, staff, and courses in a school system',
   },
   host: 'localhost:3000',
   schemes: ['http'],
-
-  // ============================
-  // 📘 SCHEMAS (Teacher + Student + Course + Staff)
-  // ============================
   definitions: {
-    Teacher: {
-      firstName: "John",
-      lastName: "Doe",
-      age: 35,
-      subject: "Mathematics",
-      yearsOfExperience: 10,
-      email: "john.doe@testemail.com",
-      isFullTime: true
-    },
-
     Student: {
       firstName: "Andrés",
       lastName: "Castillo",
@@ -32,7 +18,26 @@ const doc = {
       gpa: 3.8,
       homeroomTeacher: "Ms. Smith"
     },
-    
+    Teacher: {
+      firstName: "Sofia",
+      lastName: "Martínez",
+      age: 31,
+      subject: "Computer Science",
+      yearsOfExperience: 7,
+      email: "sofia.martinez@school.edu",
+      isFullTime: true
+    },
+    Staff: {
+      staffId: "STF-145",
+      firstName: "Ricardo",
+      lastName: "Mejía",
+      email: "ricardo.mejia@school.edu",
+      phone: "+57 315 998 2201",
+      role: "Senior Counselor",
+      department: "Student Services",
+      hireDate: "2019-08-21",
+      status: "active"
+    },
     Course: {
       courseId: 301,
       name: "Environmental Studies: Climate & Sustainability",
@@ -46,19 +51,7 @@ const doc = {
         startTime: "11:00",
         endTime: "13:00"
       },
-      prerequisites: [101, 202]
-    },
-
-    Staff: {
-      staffId: 105,
-      firstName: "Verónica",
-      lastName: "Hernández",
-      email: "veronica.hernandez@school.edu",
-      phone: "+57 318 770 6655",
-      role: "Registrar",
-      department: "Academic Records",
-      hireDate: "2022-11-01",
-      status: "active"
+      prerequisites: []
     }
   }
 };
@@ -66,9 +59,11 @@ const doc = {
 const outputFile = './swagger.json';
 const endpointsFiles = [
   './routes/index.js',
-  './routes/teachersRoute.js',
   './routes/studentsRoute.js',
+  './routes/teachersRoute.js',
+  './routes/staffRoute.js',
   './routes/coursesRoute.js'
+
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

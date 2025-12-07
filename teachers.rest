@@ -1,13 +1,13 @@
 ### GET all teachers
-GET http://localhost:3000/teachers
+GET http://localhost:3000/api/teachers
 Content-Type: application/json
 
 ### GET teacher by ID
-GET http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+GET http://localhost:3000/api/teachers/692ce431855007aa6fa6b7d6
 Content-Type: application/json
 
 ### CREATE a new teacher (POST)
-POST http://localhost:3000/teachers
+POST http://localhost:3000/api/teachers
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### UPDATE a teacher (PUT)
-PUT http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+PUT http://localhost:3000/api/teachers/6934c803e6b3c291dbbc672a
 Content-Type: application/json
 
 {
@@ -36,5 +36,5 @@ Content-Type: application/json
 
 
 ### DELETE a teacher (DELETE)
-DELETE http://localhost:3000/teachers/692e52816d3f9f763f15cb26
+DELETE http://localhost:3000/api/teachers/6934c803e6b3c291dbbc672a
 Content-Type: application/json

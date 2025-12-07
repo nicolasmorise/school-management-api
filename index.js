@@ -1,15 +1,16 @@
 const express = require('express');
+const routes = require('./routes/index')
+
 const studentsRoute = require('./routes/studentsRoute');
 const teachersRoute = require('./routes/teachersRoute');
 const coursesRoute = require('./routes/coursesRoute');
-const staffRoute = require('./routes/staffRoute')
-const app = express()
-const bodyParser = require('body-parser')
+const staffRoute = require('./routes/staffRoute');
+
+const app = express();
+const bodyParser = require('body-parser');
 const port = process.env.port || 3000;
-const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('./connection/db');
-const routes = require('./routes/index')
-const authRoutes = require('./routes/authRoute')
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const errorhandler = require('./middleware/errorhandler')
@@ -34,20 +35,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use(bodyParser.json());
 
-app.use("/auth", authRoutes);
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/', routes);
-
+// API routes
 app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
 app.use('/api/courses', coursesRoute);
 app.use('/api/staff', staffRoute);
 
-app.use(errorhandler.errorHandler);
+// Generic routes — must be LAST
+app.use('/', routes);
 
 mongodb.initDb((err, mongodb) => {
   if (err) {

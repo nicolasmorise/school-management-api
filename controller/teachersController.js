@@ -7,30 +7,33 @@ const teachersModels = require("../models/teachersModels");
 const getAll = async (req, res) => {
     // #swagger.tags = ['Teachers']
     try {
-        const teachers = await teachersModels.getAll();
-        res.status(200).json(teachers);
+        const teacher = await teachersModels.getAll();
+        res.status(200).json(teacher);
     } catch (err) {
-        res.status(500).json({ message: "Error: We had problems fetching the list of teachers." });
+        res.status(500).json({
+            message: "Error: We had problems fetching the list of teachers.",
+            error: err.message
+        });
     }
 };
 
 // GET ONE
 const getSingle = async (req, res) => {
-    //#swagger.tags = ['Teachers']
+    // #swagger.tags = ['Teachers']
     try {
         const teacher = await teachersModels.getSingle(req.params.id);
 
         if (!teacher) {
             return res.status(404).json({
-                message: "Error: Sorry, I don't think we can find that particular teacher",
+                message: "Error: Teachers not found."
             });
         }
 
         res.status(200).json(teacher);
     } catch (err) {
         res.status(500).json({
-            message: "Error: We had problems fetching the teacher's profile.",
-            error: err.message,
+            message: "Error: We had problems fetching this teacher.",
+            error: err.message
         });
     }
 };
@@ -48,19 +51,21 @@ const postTeacher = async (req, res) => {
         }
     */
     try {
-        const teacher = req.body;
-        const response = await teachersModels.postTeacher(teacher);
+        const response = await teachersModels.postTeacher(req.body);
 
         if (response.acknowledged) {
             return res.status(201).json({
-                message: "Success: New teacher profile has been created",
-                id: response.insertedId,
+                message: "Success: New teacher has been created.",
+                id: response.insertedId
             });
         }
 
-        res.status(500).json({ message: "Error: Unable to create teacher profile." });
-    } catch (error) {
-        res.status(500).json({ message: "Error: Unable to create teacher profile." });
+        res.status(500).json({ message: "Error: Unable to create teacher." });
+    } catch (err) {
+        res.status(500).json({
+            message: "Error: Unable to create teacher.",
+            error: err.message
+        });
     }
 };
 
@@ -68,40 +73,56 @@ const postTeacher = async (req, res) => {
 const putTeacher = async (req, res) => {
     /*  
         #swagger.tags = ['Teachers']
-        #swagger.description = 'Update an existing teacher'
-        #swagger.parameters['teacher'] = { 
+        #swagger.description = 'Update a teacher'
+        #swagger.parameters['teacher'] = {
             in: 'body',
-            description: 'Updated teacher information',
+            description: 'Teacher information to update',
             required: true,
             schema: { $ref: '#/definitions/Teacher' }
         }
     */
+    
     try {
         const response = await teachersModels.putTeacher(req.params.id, req.body);
 
         if (response.modifiedCount > 0) {
-            return res.status(200).json({ message: "Success: Teacher profile has been updated." });
+            return res.status(200).json({
+                message: "Success: Teacher has been updated."
+            });
         }
 
-        res.status(400).json({ message: "Error: Unable to locate teacher profile." });
+        res.status(400).json({
+            message: "Error: Unable to locate teacher or no changes made."
+        });
     } catch (err) {
-        res.status(500).json({ message: "Error: Unable to update teacher profile." });
+        res.status(500).json({
+            message: "Error: Unable to update teacher.",
+            error: err.message
+        });
     }
 };
 
 // DELETE
 const deleteTeacher = async (req, res) => {
-    //#swagger.tags = ['Teachers']
+    // #swagger.tags = ['Teachers']
     try {
         const response = await teachersModels.deleteTeacher(req.params.id);
 
         if (response.deletedCount > 0) {
-            return res.status(200).json({ message: "Success: Teacher profile has been removed." });
+            return res.status(200).json({
+                message: "Success: Teacher has been deleted."
+            });
         }
 
-        res.status(400).json({ message: "Error: Unable to locate teacher profile." });
+        res.status(400).json({
+            message: "Error: Unable to locate teacher."
+        });
+
     } catch (err) {
-        res.status(500).json({ message: "Error: Unable to delete teacher profile" });
+        res.status(500).json({
+            message: "Error: Unable to delete teacher.",
+            error: err.message
+        });
     }
 };
 
@@ -110,5 +131,5 @@ module.exports = {
     getSingle,
     postTeacher,
     putTeacher,
-    deleteTeacher,
+    deleteTeacher
 };
