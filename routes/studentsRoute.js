@@ -2,8 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const studentsController = require('../controller/studentsController');
+const studentsValidation = require('../middleware/studentsValidation');
+const handleValidation = require('../middleware/validation');
 
-// GET all students
+const ensureAuth = require('../middleware/ensureauth')
+
+router.use(ensureAuth)
+// #swagger.tags = ['Students']
+// #swagger.summary = 'Get all students'
+// #swagger.description = 'Returns a list of all students'
 router.get('/', studentsController.getAllStudent);
 /* #swagger.path = '/api/students'
    #swagger.tags = ['Students']
@@ -25,39 +32,15 @@ router.get('/:id', studentsController.getSingleStudent);
    #swagger.responses[500] = { description: 'Internal server error' }
 */
 
-// POST create student
-router.post('/', studentsController.createStudent);
-/* #swagger.path = '/api/students'
-   #swagger.tags = ['Students']
-   #swagger.summary = 'Create a new student'
-   #swagger.description = 'Creates a new student record'
-   #swagger.parameters['student'] = {
-        in: 'body',
-        description: 'Student information to create',
-        required: true,
-        schema: { $ref: '#/definitions/Student' }
-   }
-   #swagger.responses[201] = { description: 'Student created successfully' }
-   #swagger.responses[500] = { description: 'Internal server error' }
-*/
+// #swagger.tags = ['Students']
+// #swagger.summary = 'Create a new student'
+// #swagger.description = 'Creates a new student record'
+router.post('/', studentsValidation.createStudentValidation, handleValidation.handleValidationErrors ,studentsController.createStudent);
 
-// PUT update student
-router.put('/:id', studentsController.updateStudent);
-/* #swagger.path = '/api/students/{id}'
-   #swagger.tags = ['Students']
-   #swagger.summary = 'Update a student by ID'
-   #swagger.description = 'Updates an existing student record'
-   #swagger.parameters['id'] = { description: 'Student ID', required: true, type: 'string' }
-   #swagger.parameters['student'] = {
-        in: 'body',
-        description: 'Updated student information',
-        required: true,
-        schema: { $ref: '#/definitions/Student' }
-   }
-   #swagger.responses[200] = { description: 'Student updated successfully' }
-   #swagger.responses[400] = { description: 'Bad request' }
-   #swagger.responses[500] = { description: 'Internal server error' }
-*/
+// #swagger.tags = ['Students']
+// #swagger.summary = 'Update a student by ID'
+// #swagger.parameters['id'] = { description: 'Student ID' }
+router.put('/:id', studentsValidation.updateStudentValidation, handleValidation.handleValidationErrors , studentsController.updateStudent);
 
 // DELETE student
 router.delete('/:id', studentsController.deleteStudent);

@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const coursesController = require("../controller/coursesController");
+const courseValidation = require('../middleware/coursesValidation');
+const handleValidation = require('../middleware/validation');
 
-// =====================
+const ensureAuth = require('../middleware/ensureauth')
+
+router.use(ensureAuth)
+
 // Public Routes
 // =====================
 
@@ -62,16 +67,9 @@ router.put('/:id', coursesController.putCourse);
    #swagger.responses[500] = { description: 'Internal server error' }
 */
 
-// DELETE course
-router.delete('/:id', coursesController.deleteCourse); 
-/* #swagger.path = '/api/courses/{id}'
-   #swagger.tags = ['Courses']
-   #swagger.summary = 'Delete a course by ID'
-   #swagger.description = 'Deletes a course record'
-   #swagger.parameters['id'] = { description: 'Course ID', required: true, type: 'string' }
-   #swagger.responses[200] = { description: 'Course deleted successfully' }
-   #swagger.responses[400] = { description: 'Bad request' }
-   #swagger.responses[500] = { description: 'Internal server error' }
-*/
+// Protected Routes
+router.post('/', courseValidation.createCourseValidation, handleValidation.handleValidationErrors,coursesController.postCourse);
+router.put('/:id', courseValidation.updateCourseValidation, handleValidation.handleValidationErrors,coursesController.putCourse);
+router.delete('/:id', coursesController.deleteCourse);
 
 module.exports = router;

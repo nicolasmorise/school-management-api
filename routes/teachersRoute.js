@@ -1,9 +1,14 @@
 // Teachers Routes - samueldelacruz123
 const express = require('express');
 const router = express.Router();
-const teachersController = require('../controller/teachersController');
+const teachersController = require("../controller/teachersController");
+const teacherValidation = require("../middleware/teachersValidation");
+const handleValidation = require("../middleware/validation")
 
-// GET all teachers
+const ensureAuth = require('../middleware/ensureauth')
+
+router.use(ensureAuth)
+// Public Routes
 router.get('/', teachersController.getAll);
 /* #swagger.path = '/api/teachers'
    #swagger.tags = ['Teachers']
@@ -25,41 +30,9 @@ router.get('/:id', teachersController.getSingle);
    #swagger.responses[500] = { description: 'Internal server error' }
 */
 
-// POST create teacher
-router.post('/', teachersController.postTeacher);
-/* #swagger.path = '/api/teachers'
-   #swagger.tags = ['Teachers']
-   #swagger.summary = 'Create a new teacher'
-   #swagger.description = 'Creates a new teacher record'
-   #swagger.parameters['teacher'] = {
-        in: 'body',
-        description: 'Teacher information to create',
-        required: true,
-        schema: { $ref: '#/definitions/Teacher' }
-   }
-   #swagger.responses[201] = { description: 'Teacher created successfully' }
-   #swagger.responses[500] = { description: 'Internal server error' }
-*/
-
-// PUT update teacher
-router.put('/:id', teachersController.putTeacher);
-/* #swagger.path = '/api/teachers/{id}'
-   #swagger.tags = ['Teachers']
-   #swagger.summary = 'Update a teacher by ID'
-   #swagger.description = 'Updates an existing teacher record'
-   #swagger.parameters['id'] = { description: 'Teacher ID', required: true, type: 'string' }
-   #swagger.parameters['teacher'] = {
-        in: 'body',
-        description: 'Updated teacher information',
-        required: true,
-        schema: { $ref: '#/definitions/Teacher' }
-   }
-   #swagger.responses[200] = { description: 'Teacher updated successfully' }
-   #swagger.responses[400] = { description: 'Bad request' }
-   #swagger.responses[500] = { description: 'Internal server error' }
-*/
-
-// DELETE teacher
+// Protected Routes
+router.post('/', teacherValidation.createTeacherValidation, handleValidation.handleValidationErrors, teachersController.postTeacher);
+router.put('/:id', teacherValidation.updateTeacherValidation, handleValidation.handleValidationErrors ,teachersController.putTeacher);
 router.delete('/:id', teachersController.deleteTeacher);
 /* #swagger.path = '/api/teachers/{id}'
    #swagger.tags = ['Teachers']

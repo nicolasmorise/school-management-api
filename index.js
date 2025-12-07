@@ -13,6 +13,27 @@ const mongodb = require('./connection/db');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const errorhandler = require('./middleware/errorhandler')
+const passport = require("passport")
+const session = require('express-session');
+
+require("./auth/github");
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "supersecretkey",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false, // set true only if using HTTPS
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.json());
 
