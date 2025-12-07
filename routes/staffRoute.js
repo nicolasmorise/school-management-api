@@ -31,10 +31,10 @@ router.get('/:id', staffController.getSingle);
    #swagger.responses[500] = { description: 'Internal server error' }
 */
 
-router.post('/', staffValidation.createStaffValidation, validationHandler.handleValidationErrors, staffController.createStaffMember);
+router.post('/', staffValidation.createStaffValidation, validationHandler.handleValidationErrors, staffController.postStaff);
 
-router.put('/:id', staffValidation.updateStaffValidation, validationHandler.handleValidationErrors, staffController.updateStaffMember);
+router.put('/:id', staffValidation.updateStaffValidation, validationHandler.handleValidationErrors, staffController.putStaff);
 
-router.delete('/:id', staffController.deleteStaffMember);
+router.delete('/:id', staffController.deleteStaff);
 
 module.exports = router
