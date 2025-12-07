@@ -1,13 +1,13 @@
 ### GET all courses
-GET http://localhost:3000/courses
+GET http://localhost:3000/api/courses
 Content-Type: application/json
 
 ### GET course by ID
-GET http://localhost:3000/courses/6930f960855007aa6fa71656
+GET http://localhost:3000/api/courses/6930f960855007aa6fa71657
 Content-Type: application/json
 
 ### CREATE a new course (POST)
-POST http://localhost:3000/courses
+POST http://localhost:3000/api/courses
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ### UPDATE a course (PUT)
-PUT http://localhost:3000/courses/6930fbc849447b27d80bc88f
+PUT http://localhost:3000/api/courses/6934c5ff9bf66a3c7ac6d8e2
 Content-Type: application/json
 
 {
@@ -48,5 +48,5 @@ Content-Type: application/json
 
 
 ### DELETE a teacher (DELETE)
-DELETE http://localhost:3000/courses/6930fed6c1d88faad9b52cc5
+DELETE http://localhost:3000/api/courses/6934c5ff9bf66a3c7ac6d8e2
 Content-Type: application/json

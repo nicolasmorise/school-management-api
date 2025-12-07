@@ -1,0 +1,44 @@
+### GET all staff
+GET http://localhost:3000/api/staff
+Content-Type: application/json
+
+### GET staff by ID
+GET http://localhost:3000/api/staff/6930f203855007aa6fa7159c
+Content-Type: application/json
+
+### CREATE a new staff (POST)
+POST http://localhost:3000/api/staff
+Content-Type: application/json
+
+{
+  "staffId": "STF-204",
+  "firstName": "Marisol",
+  "lastName": "Gómez",
+  "email": "marisol.gomez@school.edu",
+  "phone": "+57 312 445 8899",
+  "role": "Academic Coordinator",
+  "department": "Academics",
+  "hireDate": "2022-03-10",
+  "status": "active"
+}
+
+### UPDATE a staff (PUT)
+PUT http://localhost:3000/api/staff/6934c5e79bf66a3c7ac6d8e1
+Content-Type: application/json
+
+{
+  "staffId": "STF-145",
+  "firstName": "Ricardo",
+  "lastName": "Mejía",
+  "email": "ricardo.mejia@school.edu",
+  "phone": "+57 315 998 2201",
+  "role": "Senior Counselor",
+  "department": "Student Services",
+  "hireDate": "2019-08-21",
+  "status": "active"
+}
+
+
+### DELETE a staff (DELETE)
+DELETE http://localhost:3000/api/staff/6934c5e79bf66a3c7ac6d8e1
+Content-Type: application/json

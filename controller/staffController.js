@@ -1,150 +1,136 @@
-// Staff Controllers - samueldelacruz123
 const mongodb = require('../connection/db');
 const ObjectId = require('mongodb').ObjectId;
 
-// Get all Staff
-const getAllStaff = async (req, res) => {
+// staffController.js
+const staffModels = require("../models/staffModels");
+
+// GET ALL
+const getAll = async (req, res) => {
+    // #swagger.tags = ['Staff']
     try {
-        // #swagger.tags = ['Staff']
-        const staff = await mongodb
-            .getDatabase()
-            .db()
-            .collection('staff')
-            .find()
-            .toArray();
+        const staff = await staffModels.getAll();
+        res.status(200).json(staff);
+    } catch (err) {
+        res.status(500).json({
+            message: "Error: We had problems fetching the list of staff members.",
+            error: err.message
+        });
+    }
+};
+
+// GET ONE
+const getSingle = async (req, res) => {
+    // #swagger.tags = ['Staff']
+    try {
+        const staff = await staffModels.getSingle(req.params.id);
+
+        if (!staff) {
+            return res.status(404).json({
+                message: "Error: Staff member not found."
+            });
+        }
 
         res.status(200).json(staff);
     } catch (err) {
         res.status(500).json({
-            message: 'Error retrieving staff',
-            error: err.message,
+            message: "Error: We had problems fetching this staff member.",
+            error: err.message
         });
     }
 };
 
-// Get single staff member by id
-const getSingleStaffMember = async (req, res) => {
-    try {
-        // #swagger.tags = ['Staff']
-        const staffMemberId = new ObjectId(req.params.id);
-
-        const staffMember = await mongodb
-            .getDatabase()
-            .db()
-            .collection('staff')
-            .findOne({ _id: staffMemberId });
-
-        if (!staffMember) {
-            return res.status(404).json({ message: 'Staff member not found' });
+// POST
+const postStaff = async (req, res) => {
+    /*  
+        #swagger.tags = ['Staff']
+        #swagger.description = 'Create a new staff member'
+        #swagger.parameters['staff'] = {
+            in: 'body',
+            description: 'Staff information to create',
+            required: true,
+            schema: { $ref: '#/definitions/Staff' }
         }
-
-        res.status(200).json(staffMember);
-    } catch (err) {
-        res.status(500).json({
-            message: 'Error retrieving staff member',
-            error: err.message,
-        });
-    }
-};
-
-// Create a new staff member
-const createStaffMember = async (req, res) => {
+    */
     try {
-        // #swagger.tags = ['Staff']
-        const staffMember = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            phone: req.body.phone,
-            role: req.body.role,
-            department: req.body.department,
-            hireDate: req.body.hireDate,
-            status: req.body.status,
-        };
-
-        const response = await mongodb
-            .getDatabase()
-            .db()
-            .collection('staff')
-            .insertOne(staffMember);
+        const response = await staffModels.postStaff(req.body);
 
         if (response.acknowledged) {
-            res.status(201).json({ message: 'Staff member created successfully' });
-        } else {
-            res.status(500).json({ message: 'Failed to create staff member' });
+            return res.status(201).json({
+                message: "Success: New staff member has been created.",
+                id: response.insertedId
+            });
         }
+
+        res.status(500).json({ message: "Error: Unable to create staff member." });
     } catch (err) {
         res.status(500).json({
-            message: 'Error creating staff member',
-            error: err.message,
+            message: "Error: Unable to create staff member.",
+            error: err.message
         });
     }
 };
 
-// Update a staff member by id
-const updateStaffMember = async (req, res) => {
+// PUT
+const putStaff = async (req, res) => {
+    /*  
+        #swagger.tags = ['Staff']
+        #swagger.description = 'Update a staff member'
+        #swagger.parameters['staff'] = {
+            in: 'body',
+            description: 'Staff information to update',
+            required: true,
+            schema: { $ref: '#/definitions/Staff' }
+        }
+    */
+    
     try {
-        // #swagger.tags = ['Staff']
-        const staffMemberId = new ObjectId(req.params.id);
-
-        const updatedStaffMember = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            phone: req.body.phone,
-            role: req.body.role,
-            department: req.body.department,
-            hireDate: req.body.hireDate,
-            status: req.body.status,
-        };
-
-        const response = await mongodb
-            .getDatabase()
-            .db()
-            .collection('staff')
-            .replaceOne({ _id: staffMemberId }, updatedStaffMember);
+        const response = await staffModels.putStaff(req.params.id, req.body);
 
         if (response.modifiedCount > 0) {
-            res.status(200).json({ message: 'Staff member updated successfully' });
-        } else {
-            res.status(404).json({ message: 'Staff member not found or no changes made' });
+            return res.status(200).json({
+                message: "Success: Staff member has been updated."
+            });
         }
+
+        res.status(400).json({
+            message: "Error: Unable to locate staff member or no changes made."
+        });
     } catch (err) {
         res.status(500).json({
-            message: 'Error updating staff member',
-            error: err.message,
+            message: "Error: Unable to update staff member.",
+            error: err.message
         });
     }
 };
 
-// Delete a staff member by id
-const deleteStaffMember = async (req, res) => {
+// DELETE
+const deleteStaff = async (req, res) => {
+    // #swagger.tags = ['Staff']
     try {
-        // #swagger.tags = ['Staff']
-        const staffMemberId = new ObjectId(req.params.id);
-        const response = await mongodb
-            .getDatabase()
-            .db()
-            .collection('staff')
-            .deleteOne({ _id: staffMemberId });
+        const response = await staffModels.deleteStaff(req.params.id);
 
         if (response.deletedCount > 0) {
-            res.status(200).json({ message: 'Staff member deleted successfully' });
-        } else {
-            res.status(404).json({ message: 'Staff member not found' });
+            return res.status(200).json({
+                message: "Success: Staff member has been deleted."
+            });
         }
+
+        res.status(400).json({
+            message: "Error: Unable to locate staff member."
+        });
+
     } catch (err) {
         res.status(500).json({
-            message: 'Error deleting staff member',
-            error: err.message,
+            message: "Error: Unable to delete staff member.",
+            error: err.message
         });
     }
 };
 
 module.exports = {
-    getAllStaff,
-    getSingleStaffMember,
-    createStaffMember,
-    updateStaffMember,
-    deleteStaffMember,
+    getAll,
+    getSingle,
+    postStaff,
+    putStaff,
+    deleteStaff
 };
