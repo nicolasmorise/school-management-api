@@ -20,6 +20,8 @@ const session = require('express-session');
 
 require("./auth/github");
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "supersecretkey",
