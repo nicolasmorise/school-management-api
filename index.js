@@ -5,6 +5,7 @@ const studentsRoute = require('./routes/studentsRoute');
 const teachersRoute = require('./routes/teachersRoute');
 const coursesRoute = require('./routes/coursesRoute');
 const staffRoute = require('./routes/staffRoute');
+const authRoutes = require('./routes/authRoute')
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -36,6 +37,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(bodyParser.json());
+
+app.use('/auth', authRoutes);
 
 // Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
