@@ -5,8 +5,8 @@ const doc = {
     title: 'School Management API',
     description: 'API for managing students, teachers, staff, and courses in a school system',
   },
-  host: 'localhost:3000',
-  schemes: ['http'],
+  host: 'school-management-api-qmdu.onrender.com',
+  schemes: ['https'],
   definitions: {
     Student: {
       firstName: "Andrés",
