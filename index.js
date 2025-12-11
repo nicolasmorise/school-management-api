@@ -24,7 +24,7 @@ app.set("trust proxy", 1);
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "supersecretkey",
+    secret: process.env.GITHUB_CLIENT_SECRET || "supersecretkey",
     resave: false,
     saveUninitialized: false,
     cookie: {
